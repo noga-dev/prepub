@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov.info - models/options.dart</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">models</a> - options.dart<span style="font-size: 80%;"> (source / <a href="options.dart.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2022-10-23 14:43:05</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntryHi">-</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : import 'package:build_cli_annotations/build_cli_annotations.dart';</a>
+<a name="2"><span class="lineNum">       2 </span>            : </a>
+<a name="3"><span class="lineNum">       3 </span>            : part 'options.g.dart';</a>
+<a name="4"><span class="lineNum">       4 </span>            : </a>
+<a name="5"><span class="lineNum">       5 </span>            : typedef _InvalidTypeException = FormatException;</a>
+<a name="6"><span class="lineNum">       6 </span>            : </a>
+<a name="7"><span class="lineNum">       7 </span><span class="lineCov">          6 : List&lt;String&gt; _extractListFromString(String? arg) =&gt; arg?.split(' ') ?? [];</span></a>
+<a name="8"><span class="lineNum">       8 </span><span class="lineCov">          2 : </span></a>
+<a name="9"><span class="lineNum">       9 </span>            : // coverage:ignore-start</a>
+<a name="10"><span class="lineNum">      10 </span>            : ValidationType _extractValidationTypeFromString(String? arg) {</a>
+<a name="11"><span class="lineNum">      11 </span>            :   if (arg == null || arg.isEmpty || arg == 'none') {</a>
+<a name="12"><span class="lineNum">      12 </span>            :     return ValidationType.none;</a>
+<a name="13"><span class="lineNum">      13 </span>            :   }</a>
+<a name="14"><span class="lineNum">      14 </span>            :   switch (arg) {</a>
+<a name="15"><span class="lineNum">      15 </span>            :     case 'sync':</a>
+<a name="16"><span class="lineNum">      16 </span>            :       return ValidationType.sync;</a>
+<a name="17"><span class="lineNum">      17 </span>            :     case 'format':</a>
+<a name="18"><span class="lineNum">      18 </span>            :       return ValidationType.format;</a>
+<a name="19"><span class="lineNum">      19 </span>            :     default:</a>
+<a name="20"><span class="lineNum">      20 </span>            :       throw _InvalidTypeException(</a>
+<a name="21"><span class="lineNum">      21 </span>            :         'Invalid Format type',</a>
+<a name="22"><span class="lineNum">      22 </span>            :         StackTrace.current,</a>
+<a name="23"><span class="lineNum">      23 </span>            :       );</a>
+<a name="24"><span class="lineNum">      24 </span>            :   }</a>
+<a name="25"><span class="lineNum">      25 </span>            : }</a>
+<a name="26"><span class="lineNum">      26 </span>            : // coverage:ignore-end</a>
+<a name="27"><span class="lineNum">      27 </span>            : </a>
+<a name="28"><span class="lineNum">      28 </span>            : enum ValidationType {</a>
+<a name="29"><span class="lineNum">      29 </span>            :   none,</a>
+<a name="30"><span class="lineNum">      30 </span>            :   sync,</a>
+<a name="31"><span class="lineNum">      31 </span>            :   format,</a>
+<a name="32"><span class="lineNum">      32 </span>            : }</a>
+<a name="33"><span class="lineNum">      33 </span>            : </a>
+<a name="34"><span class="lineNum">      34 </span>            : // coverage:ignore-line</a>
+<a name="35"><span class="lineNum">      35 </span>            : String get usageHelp =&gt; _$parserForOptions.usage;</a>
+<a name="36"><span class="lineNum">      36 </span>            : </a>
+<a name="37"><span class="lineNum">      37 </span>            : // coverage:ignore-line</a>
+<a name="38"><span class="lineNum">      38 </span>            : @CliOptions()</a>
+<a name="39"><span class="lineNum">      39 </span>            : class Options {</a>
+<a name="40"><span class="lineNum">      40 </span>            :   /// Populates final and non-null fields as long as there are matching</a>
+<a name="41"><span class="lineNum">      41 </span>            :   /// constructor parameters.</a>
+<a name="42"><span class="lineNum">      42 </span>            :   Options({</a>
+<a name="43"><span class="lineNum">      43 </span><span class="lineCov">          2 :     required this.files,</span></a>
+<a name="44"><span class="lineNum">      44 </span>            :     required this.packages,</a>
+<a name="45"><span class="lineNum">      45 </span>            :     required this.exceptions,</a>
+<a name="46"><span class="lineNum">      46 </span>            :     required this.type,</a>
+<a name="47"><span class="lineNum">      47 </span>            :   });</a>
+<a name="48"><span class="lineNum">      48 </span>            : </a>
+<a name="49"><span class="lineNum">      49 </span>            :   /// Validation type. Example:</a>
+<a name="50"><span class="lineNum">      50 </span>            :   /// ChangelogSync, ChangelogFormat</a>
+<a name="51"><span class="lineNum">      51 </span>            :   @CliOption(</a>
+<a name="52"><span class="lineNum">      52 </span>            :     abbr: 't',</a>
+<a name="53"><span class="lineNum">      53 </span>            :     help: 'The type of validation to perform.',</a>
+<a name="54"><span class="lineNum">      54 </span>            :     allowedHelp: {</a>
+<a name="55"><span class="lineNum">      55 </span>            :       'sync': 'Check if changelog was updated after a package had changes.',</a>
+<a name="56"><span class="lineNum">      56 </span>            :       'format': 'Validate changelog version format.',</a>
+<a name="57"><span class="lineNum">      57 </span>            :     },</a>
+<a name="58"><span class="lineNum">      58 </span>            :     convert: _extractValidationTypeFromString,</a>
+<a name="59"><span class="lineNum">      59 </span>            :   )</a>
+<a name="60"><span class="lineNum">      60 </span>            :   final ValidationType type;</a>
+<a name="61"><span class="lineNum">      61 </span>            : </a>
+<a name="62"><span class="lineNum">      62 </span>            :   /// The list of files. Example format:</a>
+<a name="63"><span class="lineNum">      63 </span>            :   /// .github/workflows/ci-cd.yml .gitignore README.md ROADMAP.md packages/flutter_riverpod/test/version_test.dart packages/hooks_riverpod/lib/src/consumer.dart packages/hooks_riverpod/pubspec.yaml packages/hooks_riverpod/test/version_test.dart packages/riverpod_annotation/CHANGELOG.md packages/riverpod_annotation/lib/riverpod_annotation.dart packages/riverpod_annotation/pubspec.yaml packages/riverpod_generator/CHANGELOG.md packages/riverpod_generator/pubspec.yaml packages/riverpod_generator/test/async_notifier_test.dart packages/riverpod_generator/test/async_test.dart packages/riverpod_generator/test/auto_dispose_test.dart packages/riverpod_generator/test/integration/async.dart packages/riverpod_generator/test/integration/auto_dispose.dart packages/riverpod_generator/test/integration/hash/hash1.dart packages/riverpod_generator/test/integration/sync.dart packages/riverpod_generator/test/sync_test.dart packages/riverpod_graph/bin/main.dart packages/riverpod_graph/lib/src/analyze.dart packages/riverpod_graph/test/integration/generated/generated_test.dart packages/riverpod_graph/test/integration/generated/golden/lib/main.dart packages/riverpod_graph/test/integration/generated/golden/lib/sync.dart packages/riverpod_lint_flutter_test/pubspec.yaml website/docs/cookbooks/search_as_we_type.mdx website/docs/getting_started.mdx website/docs/getting_started_hello_world_dart.dart website/docs/getting_started_hello_world_flutter.dart website/docs/getting_started_hello_world_hooks.dart website/docs/providers/change_notifier_provider.mdx website/docs/providers/future_provider.mdx website/docs/providers/future_provider/config_consumer.dart website/docs/providers/future_provider/config_provider.dart website/docs/providers/stream_provider.mdx website/i18n/bn/docusaurus-plugin-content-docs/current/cookbooks/search_as_we_type.mdx website/i18n/bn/docusaurus-plugin-content-docs/current/getting_started.mdx website/i18n/bn/docusaurus-plugin-content-docs/current/providers/future_provider.mdx website/i18n/bn/docusaurus-theme-classic/footer.json website/i18n/de/docusaurus-plugin-content-docs/current/cookbooks/search_as_we_type.mdx website/i18n/de/docusaurus-plugin-content-docs/current/getting_started.mdx website/i18n/de/docusaurus-plugin-content-docs/current/providers/future_provider.mdx website/i18n/es/docusaurus-plugin-content-docs/current/providers/future_provider.mdx website/i18n/es/docusaurus-plugin-content-docs/current/providers/stream_provider.mdx website/i18n/fr/code.json website/i18n/fr/docusaurus-plugin-content-docs/current/cookbooks/testing.mdx website/i18n/fr/docusaurus-plugin-content-docs/current/migration/0.14.0_to_1.0.0.mdx website/i18n/fr/docusaurus-plugin-content-docs/current/providers/future_provider.mdx website/i18n/fr/docusaurus-plugin-content-docs/current/providers/stream_provider.mdx website/i18n/fr/docusaurus-theme-classic/footer.json website/i18n/it/docusaurus-plugin-content-docs/current/cookbooks/search_as_we_type.mdx website/i18n/it/docusaurus-plugin-content-docs/current/providers/future_provider.mdx website/i18n/it/docusaurus-plugin-content-docs/current/providers/stream_provider.mdx website/i18n/it/docusaurus-theme-classic/footer.json website/i18n/ja/docusaurus-plugin-content-docs/current/getting_started.mdx website/i18n/ja/docusaurus-plugin-content-docs/current/providers/future_provider.mdx website/i18n/ja/docusaurus-theme-classic/footer.json website/i18n/ko/docusaurus-plugin-content-docs/current/cookbooks/search_as_we_type.mdx website/i18n/ko/docusaurus-plugin-content-docs/current/getting_started.mdx website/i18n/ko/docusaurus-plugin-content-docs/current/providers/future_provider.mdx website/i18n/ko/docusaurus-plugin-content-docs/current/providers/stream_provider.mdx website/i18n/ko/docusaurus-theme-classic/footer.json website/package-lock.json website/package.json website/pubspec.yaml website/sidebars.js website/src/components/Banner/index.tsx website/src/components/CodeSnippet/index.tsx website/src/pages/index.tsx website/static/snippets/create.dart website/static/snippets/read.dart website/yarn.lock</a>
+<a name="64"><span class="lineNum">      64 </span>            :   @CliOption(</a>
+<a name="65"><span class="lineNum">      65 </span>            :     abbr: 'f',</a>
+<a name="66"><span class="lineNum">      66 </span>            :     help: 'The list of changed files (based on results'</a>
+<a name="67"><span class="lineNum">      67 </span>            :         ' from tj-actions/changed-files@v32). e.g.'</a>
+<a name="68"><span class="lineNum">      68 </span>            :         '  \u001b[35m&quot;.gitignore README.md CHANGELOG.md LICENSE&quot;\x1B[0m.',</a>
+<a name="69"><span class="lineNum">      69 </span>            :     convert: _extractListFromString,</a>
+<a name="70"><span class="lineNum">      70 </span>            :   )</a>
+<a name="71"><span class="lineNum">      71 </span>            :   final List&lt;String&gt; files;</a>
+<a name="72"><span class="lineNum">      72 </span>            : </a>
+<a name="73"><span class="lineNum">      73 </span>            :   // TODO(noga-dev): infer?</a>
+<a name="74"><span class="lineNum">      74 </span>            :   /// The packages list folder. Example:</a>
+<a name="75"><span class="lineNum">      75 </span>            :   /// packages/package1</a>
+<a name="76"><span class="lineNum">      76 </span>            :   /// packages/package2</a>
+<a name="77"><span class="lineNum">      77 </span>            :   @CliOption(</a>
+<a name="78"><span class="lineNum">      78 </span>            :     abbr: 'p',</a>
+<a name="79"><span class="lineNum">      79 </span>            :     help: 'The relative path to the packages.',</a>
+<a name="80"><span class="lineNum">      80 </span>            :     convert: _extractListFromString,</a>
+<a name="81"><span class="lineNum">      81 </span>            :   )</a>
+<a name="82"><span class="lineNum">      82 </span>            :   final List&lt;String&gt; packages;</a>
+<a name="83"><span class="lineNum">      83 </span>            : </a>
+<a name="84"><span class="lineNum">      84 </span>            :   // TODO(noga-dev): accept regex instead to account for files/paths/etc.?</a>
+<a name="85"><span class="lineNum">      85 </span>            :   /// Exception formats. Example:</a>
+<a name="86"><span class="lineNum">      86 </span>            :   /// md, mdx</a>
+<a name="87"><span class="lineNum">      87 </span>            :   @CliOption(</a>
+<a name="88"><span class="lineNum">      88 </span>            :     abbr: 'e',</a>
+<a name="89"><span class="lineNum">      89 </span>            :     help: 'List of file formats to ignore separated by a single space.'</a>
+<a name="90"><span class="lineNum">      90 </span>            :         ' e.g. \u001b[35m&quot;mdx md txt&quot;\x1B[0m',</a>
+<a name="91"><span class="lineNum">      91 </span>            :     convert: _extractListFromString,</a>
+<a name="92"><span class="lineNum">      92 </span>            :   )</a>
+<a name="93"><span class="lineNum">      93 </span>            :   final List&lt;String&gt; exceptions;</a>
+<a name="94"><span class="lineNum">      94 </span>            : }</a>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.14</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>
