@@ -8,11 +8,11 @@ List<String> _extractListFromString(String? arg) => arg?.split(' ') ?? [];
 // coverage:ignore-start
 Action _extractValidationTypeFromString(String? arg) {
   switch (arg) {
-    case 'sync':
+    case _kActionTypeSync:
       return Action.checkChangelogSync;
-    case 'format':
+    case _kActionTypeFormat:
       return Action.checkChangelogFormat;
-    case 'update':
+    case _kActionTypeUpdate:
       return Action.updatePubspecVersion;
     default:
       throw ArgumentError.value(arg, 'action', 'must be provided');
@@ -25,6 +25,11 @@ enum Action {
   checkChangelogFormat,
   updatePubspecVersion,
 }
+
+// enum can't be const https://github.com/dart-lang/language/issues/1811
+const _kActionTypeUpdate = 'update';
+const _kActionTypeSync = 'sync';
+const _kActionTypeFormat = 'format';
 
 // coverage:ignore-line
 String get usageHelp => _$parserForOptions.usage;
@@ -47,16 +52,16 @@ class Options {
     abbr: 'a',
     help: '${kTextColorCyan}The type of action to perform.$kTextColorSuffix',
     allowed: [
-      'sync',
-      'format',
-      'update',
+      _kActionTypeSync,
+      _kActionTypeFormat,
+      _kActionTypeUpdate,
     ],
     allowedHelp: {
-      '${kTextColorMagenta}sync$kTextColorSuffix':
+      '$kTextColorMagenta$_kActionTypeSync$kTextColorSuffix':
           '${kTextColorCyan}Ensure changelog was updated if a package had changes.$kTextColorSuffix',
-      '${kTextColorMagenta}format$kTextColorSuffix':
+      '$kTextColorMagenta$_kActionTypeFormat$kTextColorSuffix':
           '${kTextColorCyan}Validate changelog version format.$kTextColorSuffix',
-      '${kTextColorMagenta}update$kTextColorSuffix':
+      '$kTextColorMagenta$_kActionTypeUpdate$kTextColorSuffix':
           '${kTextColorCyan}Update pubspec\'s version to the latest entry in changelog.$kTextColorSuffix',
     },
     convert: _extractValidationTypeFromString,

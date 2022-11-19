@@ -1,32 +1,36 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:prepub/prepub.dart' as prepub;
+import 'package:prepub/src/constants.dart';
 
-const _kOnlyMarkdownFilesModifiedMsg = 'Only markdown files were modified.';
-
-void main(List<String> arguments) {
-  if (arguments.isEmpty) {
-    print('\x1B[33mWarning: Empty args\x1B[0m');
+void isEmpty(bool value) {
+  if (value) {
+    print('${kTextColorYellow}Warning: Empty args$kTextColorSuffix');
     print(prepub.usageHelp);
-    exitCode = 1;
-    return;
+    exit(1);
   }
-  late final prepub.Options options;
+}
 
+prepub.Options parseArgs(List<String> args) {
   try {
-    options = prepub.parseOptions(arguments);
+    return prepub.parseOptions(args);
   } catch (error, stackTrace) {
-    final kExceptionParsingArgsMsg = 'Error parsing args...'
-        '\n'
-        'Error: $error'
-        '\n'
-        'StackTrace:$stackTrace';
-    log('log:::$kExceptionParsingArgsMsg');
-    print('\x1B[31mError: $kExceptionParsingArgsMsg\x1B[0m');
-    exitCode = 1;
-    return;
+    print(
+        '${kTextColorRed}Error: Error parsing args...\nError: $error\nStackTrace:$stackTrace$kTextColorSuffix');
+    print(prepub.usageHelp);
+    exit(1);
   }
+}
+
+void main(List<String> args) {
+  isEmpty(args.isEmpty);
+
+  final prepub.Options options = parseArgs(args);
+
+  final envOutputFile = File(Platform.environment['GITHUB_OUTPUT'] ?? '');
+  final envOutputFileSink = envOutputFile.openWrite(
+    mode: FileMode.writeOnlyAppend,
+  );
 
   final files = options.files;
 
@@ -36,17 +40,34 @@ void main(List<String> arguments) {
           '^*.(${options.exclusions.join('|')})\$',
         ),
       )) {
-    log('log:::$_kOnlyMarkdownFilesModifiedMsg');
-    print('\x1B[34m$_kOnlyMarkdownFilesModifiedMsg\x1B[0m');
-    exitCode = 0;
-    return;
+    print(
+        '${kTextColorCyan}Only excluded files were modified.$kTextColorSuffix');
+    envOutputFileSink.close();
+    exit(0);
   }
 
-  print('printStart');
-  log('logStart');
-  print('::set-output name=testval::111');
-  log('::set-output name=testval::222');
-  print('Found ${files.length} changed files.');
-  log('logEnd');
-  print('printEnd');
+  // envOutputFileSink.writeln('name=testval');
+
+  switch (options.action) {
+    case prepub.Action.checkChangelogSync:
+      prepub.updatePubspecVersion(
+        exclusions: options.exclusions,
+        files: files,
+      );
+      break;
+    case prepub.Action.checkChangelogFormat:
+      prepub.isChangelogFormatValid(
+        exclusions: options.exclusions,
+        fileList: files,
+      );
+      break;
+    case prepub.Action.updatePubspecVersion:
+      prepub.validateChangelogSync(
+        exclusions: options.exclusions,
+        files: files,
+      );
+      break;
+  }
+
+  envOutputFileSink.close();
 }
